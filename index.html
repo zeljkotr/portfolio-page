@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeljko Tripcevski — Systems &amp; Infrastructure Engineering Portfolio</title>
+<meta name="description" content="Production infrastructure, virtualization, networking and RF engineering case studies by Zeljko Tripcevski.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanline-overlay" aria-hidden="true"></div>
+
+<header class="statusbar">
+  <div class="statusbar-inner">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="status-text">root@ztripcevski:~$ <span class="cursor">_</span></span>
+    <nav class="statusbar-nav">
+      <a href="#work">work</a>
+      <a href="#stack">stack</a>
+      <a href="#ops">leadership</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <p class="eyebrow">SYSTEMS &amp; INFRASTRUCTURE ENGINEERING PORTFOLIO</p>
+      <h1>Zeljko Tripcevski</h1>
+      <p class="role">Systems Engineer — Virtualization, Networking &amp; Production Infrastructure</p>
+      <p class="hero-sub">7+ years running production environments. Case studies below, not coursework — real migrations, real networks, real failures diagnosed under load.</p>
+      <div class="hero-meta">
+        <div><span class="k">LOCATION</span><span class="v">Niš, Serbia</span></div>
+        <div><span class="k">EXPERIENCE</span><span class="v">7+ yrs production</span></div>
+        <div><span class="k">CONTACT</span><span class="v"><a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a></span></div>
+        <div><span class="k">PROFILE</span><span class="v"><a href="https://linkedin.com/in/zeljko-tripcevski" target="_blank" rel="noopener">linkedin.com/in/zeljko-tripcevski</a></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="about-inner">
+      <p class="section-label">01 / OVERVIEW</p>
+      <p class="about-lead">This site collects infrastructure and systems projects I've designed and delivered in live production environments. Each case study covers the problem, the approach, the specific technical trade-offs I made and why, and the outcome.</p>
+      <div class="about-cols">
+        <div class="about-col">
+          <span class="num">01</span>
+          <h3>Production Infrastructure</h3>
+          <p>Virtualization, storage, and network systems designed and run in live business environments.</p>
+        </div>
+        <div class="about-col">
+          <span class="num">02</span>
+          <h3>Decision-Driven Engineering</h3>
+          <p>Every migration and deployment below includes the reasoning behind key technical trade-offs.</p>
+        </div>
+        <div class="about-col">
+          <span class="num">03</span>
+          <h3>Communication &amp; Leadership</h3>
+          <p>Led and trained teams of up to 7, writing documentation for technical and non-technical audiences alike.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="stack" id="stack">
+    <div class="stack-inner">
+      <div class="stack-group">
+        <span class="stack-label">CORE STACK</span>
+        <div class="chips">
+          <span>Linux</span><span>Windows Server</span><span>VMware</span><span>Hyper-V</span><span>KVM / QEMU</span><span>TrueNAS / ZFS</span><span>MikroTik</span><span>Docker</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <span class="stack-label">LANGUAGES &amp; TOOLS</span>
+        <div class="chips"><span>Python</span><span>SQL</span><span>Shell</span><span>SSH</span></div>
+      </div>
+      <div class="stack-group">
+        <span class="stack-label">NETWORKING</span>
+        <div class="chips"><span>TCP/IP</span><span>VLAN</span><span>VPN (WireGuard/OpenVPN/L2TP)</span><span>DNS</span><span>QoS</span><span>SNMP</span></div>
+      </div>
+      <div class="stack-group">
+        <span class="stack-label">AI / LLM</span>
+        <div class="chips"><span>Ollama</span><span>Open WebUI</span><span>Local LLM Inference</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work" id="work">
+    <p class="section-label work-label">02 / CASE STUDIES</p>
+
+    <!-- CASE STUDY 1 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">VIRTUALIZATION · PRODUCTION MIGRATION</span>
+        <h2>Windows 10 Physical-to-Virtual Migration onto TrueNAS / KVM</h2>
+        <div class="meta-row">
+          <div><span class="k">ORG</span><span class="v">MTC Nissal d.o.o.</span></div>
+          <div><span class="k">TIMEFRAME</span><span class="v">Apr 2026</span></div>
+          <div><span class="k">ROLE</span><span class="v">Sole engineer, end-to-end</span></div>
+          <div><span class="k">STACK</span><span class="v">KVM, QEMU, TrueNAS SCALE, ZFS, VirtIO</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>A production Windows 10 machine needed to move off ageing physical hardware and onto a virtualized, ZFS-backed platform — without downtime-causing data loss, and without losing driver or boot compatibility along the way.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Approach</h4>
+        <ul>
+          <li>Captured a consistent disk image of the live system using Disk2vhd with VSS, avoiding the need to take the source machine offline during imaging.</li>
+          <li>Converted the resulting VHDX image to RAW format via QEMU, the format best suited to direct ZFS-backed storage on TrueNAS SCALE.</li>
+          <li>Provisioned and tuned a ZVOL on ZFS for the new virtual disk, balancing size, performance, and snapshot overhead.</li>
+          <li>Imported the converted image into the ZVOL using low-level <code>dd</code> operations for a byte-accurate transfer.</li>
+        </ul>
+      </div>
+
+      <div class="case-block decisions">
+        <h4>Key Decisions</h4>
+        <p><strong>RAW over VHDX:</strong> RAW avoids the translation overhead of a container format and integrates directly with ZFS block storage, which mattered more here than VHDX's portability features.</p>
+        <p><strong>VirtIO over emulated hardware:</strong> after the migrated VM failed to boot (UEFI/BIOS mismatch, missing bootloader), I diagnosed a driver mismatch between the physical machine's hardware and the VM's emulated devices, and resolved it by installing VirtIO drivers — trading a small amount of extra setup for significantly better disk and network performance going forward.</p>
+      </div>
+
+      <figure class="fig">
+        <img src="img/zvol-truenas.jpg" alt="TrueNAS SCALE ZVOL configuration for the migrated VM, 355GB allocated" loading="lazy">
+        <figcaption>FIG. 1 — TrueNAS SCALE: ZVOL for the migrated VM (355 GB allocated, ZFS dataset view, credentials redacted)</figcaption>
+      </figure>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>Delivered a fully functional virtual machine with networking and services restored, gaining portability, easier backup/snapshot management, and a path to better resource scaling than the original physical host allowed.</p>
+      </div>
+    </article>
+
+    <!-- CASE STUDY 2 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">AI INFRASTRUCTURE · SELF-HOSTED INFERENCE</span>
+        <h2>Self-Hosted LLM Inference Platform (Llama + Open WebUI on TrueNAS)</h2>
+        <div class="meta-row">
+          <div><span class="k">HOST</span><span class="v">TrueNAS SCALE (home/lab server)</span></div>
+          <div><span class="k">ROLE</span><span class="v">Sole engineer, end-to-end</span></div>
+          <div><span class="k">COMPUTE</span><span class="v">CPU-only inference</span></div>
+          <div><span class="k">STACK</span><span class="v">Ollama, Open WebUI, Docker Compose</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>Run a local large language model entirely on existing TrueNAS hardware — no GPU, no cloud API calls — while keeping the deployment simple enough to maintain, update, and access from any device on the network through a clean web interface.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Approach</h4>
+        <ul>
+          <li>Deployed Ollama as the model runtime, handling model downloads, quantization formats, and the local inference API.</li>
+          <li>Deployed Open WebUI as the front end, connected to Ollama's API, for a ChatGPT-style interface accessible from any browser on the network.</li>
+          <li>Defined both services in a single Docker Compose stack on TrueNAS SCALE, with persistent storage backed by a dedicated ZFS dataset.</li>
+          <li>Selected quantized model sizes that ran at usable response speed on CPU-only hardware.</li>
+        </ul>
+      </div>
+
+      <div class="case-block decisions">
+        <h4>Key Decisions</h4>
+        <p><strong>CPU-only inference:</strong> rather than holding off until GPU hardware was available, I deployed on existing CPU resources and tuned model size/quantization to keep response times practical — trading peak performance for a working system today.</p>
+        <p><strong>Docker Compose over TrueNAS Apps:</strong> chose a hand-written Compose stack for direct control over volumes, networking, and upgrade timing, rather than the more opinionated built-in app catalog.</p>
+      </div>
+
+      <div class="case-block highlight">
+        <h4>Extended Capability — Voice-Driven Network Monitoring</h4>
+        <p>Beyond a basic chat interface, I extended the assistant with voice commands wired to local network checks — asking it out loud to check disk usage across all computers on the LAN, or to flag a user whose RAM or CPU usage is running high. This moved the deployment from a Q&amp;A chatbot toward a lightweight agentic assistant that can query and report on real infrastructure state on request.</p>
+      </div>
+
+      <figure class="fig fig-pair">
+        <div>
+          <img src="img/ollama-webui-apps.jpg" alt="Ollama and Open WebUI running as TrueNAS apps" loading="lazy">
+          <figcaption>FIG. 2 — Ollama + Open WebUI as TrueNAS apps</figcaption>
+        </div>
+        <div>
+          <img src="img/openwebui-chat.jpg" alt="Open WebUI chat interface running Llama 3.1 8B" loading="lazy">
+          <figcaption>FIG. 3 — Open WebUI chat interface, Llama 3.1 8B</figcaption>
+        </div>
+      </figure>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>A self-hosted, privacy-respecting LLM chat platform running entirely on owned hardware, with no per-token cost or external API dependency, extended with voice-driven, agent-style network monitoring.</p>
+      </div>
+    </article>
+
+    <!-- CASE STUDY 3 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">INDUSTRIAL SYSTEMS · LEGACY MODERNIZATION</span>
+        <h2>Legacy SCADA System Virtualization (Windows XP → VMware)</h2>
+        <div class="meta-row">
+          <div><span class="k">SYSTEM</span><span class="v">Pressezi SCADA</span></div>
+          <div><span class="k">SOURCE</span><span class="v">Obsolete Windows XP host</span></div>
+          <div><span class="k">ROLE</span><span class="v">Sole engineer, end-to-end</span></div>
+          <div><span class="k">STACK</span><span class="v">VMware vCenter Converter, VMware Workstation</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>An industrial SCADA system was still running production on a physical Windows XP machine — an OS long past end-of-life, on hardware that could fail at any time with no replacement available. The SCADA software couldn't be upgraded or replaced without risking compatibility with the PLC equipment it controlled.</p>
+      </div>
+
+      <div class="case-block decisions">
+        <h4>The Real Decision</h4>
+        <p>The core engineering call wasn't a technical migration step — it was choosing to virtualize and preserve the exact original software environment rather than attempt to replace or upgrade the SCADA software. Any change risked breaking PLC communication built around very specific, undocumented timing and driver behavior. Virtualization let me eliminate the hardware risk entirely while leaving the proven software untouched.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Approach</h4>
+        <ul>
+          <li>Performed a P2V conversion using VMware vCenter Converter, finalized in VMware Workstation.</li>
+          <li>Configured virtual hardware, networking, and communication interfaces to remain fully compatible with existing industrial equipment.</li>
+          <li>Set up serial/USB device passthrough so the VM kept communicating with physical PLC hardware exactly as the original machine did.</li>
+          <li>Migrated network settings and IPs, validated full SCADA functionality before cutover, and implemented a backup/snapshot strategy the physical setup never had.</li>
+        </ul>
+      </div>
+
+      <figure class="fig diagram-fig">
+        <div class="ba-diagram" role="img" aria-label="Before: physical Windows XP host, single point of failure, connected via serial/USB to PLC industrial equipment. After: virtualized on VMware host with snapshots and scheduled backup, same USB/serial passthrough to PLC.">
+          <div class="ba-col">
+            <span class="ba-title">BEFORE</span>
+            <div class="ba-box risk">Physical Host<br><span>Windows XP</span><br><span>Pressezi SCADA</span></div>
+            <div class="ba-link">serial / USB</div>
+            <div class="ba-box plc">PLC<br><span>Industrial Equipment</span></div>
+            <span class="ba-flag risk-flag">single point of failure</span>
+          </div>
+          <div class="ba-arrow">P2V →</div>
+          <div class="ba-col">
+            <span class="ba-title">AFTER</span>
+            <div class="ba-box safe">VM: Windows XP<br><span>Pressezi SCADA (unchanged software)</span></div>
+            <div class="ba-link">USB/Serial passthrough</div>
+            <div class="ba-box plc">PLC<br><span>Industrial Equipment</span></div>
+            <span class="ba-flag safe-flag">Snapshots + scheduled backup — recoverable</span>
+          </div>
+        </div>
+        <figcaption>FIG. 4 — Architecture: physical Windows XP host (before) → virtualized on VMware with snapshot/backup (after), PLC connectivity preserved</figcaption>
+      </figure>
+
+      <figure class="fig fig-pair">
+        <div>
+          <img src="img/scada-process-parameters.png" alt="WinCC PEvisio process parameter screen running inside the virtualized Windows XP guest on VMware Workstation, showing live extrusion press setpoints and pressures" loading="lazy">
+          <figcaption>FIG. 5 — Pressezi SCADA (WinCC PEvisio) running in the migrated Windows XP VM on VMware Workstation — process parameters screen, live production values</figcaption>
+        </div>
+        <div>
+          <img src="img/scada-extrusion-line-hmi.png" alt="WinCC PEvisio extrusion line HMI mimic screen inside the same VM, showing the press, containers and pushers with live sensor values" loading="lazy">
+          <figcaption>FIG. 6 — Same VM: live extrusion-line HMI mimic, confirming PLC I/O and sensor feedback survived the migration intact</figcaption>
+        </div>
+      </figure>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>Eliminated hardware dependency and single-point-of-failure risk, added proper backup/disaster recovery for the first time, and extended the system's operational lifecycle — all without touching the original, proven software environment.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Key Lessons</h4>
+        <ul>
+          <li><strong>Virtualization as risk mitigation, not modernization:</strong> the goal was never to modernize the SCADA software — it was to eliminate the one thing that could bring everything down. Keeping the software frozen was the right call.</li>
+          <li><strong>Serial/USB passthrough is the critical path:</strong> the VM can run all day, but if PLC communication breaks, nothing works. Testing this first, before cutover, was essential.</li>
+          <li><strong>Snapshots are not backups, but better than nothing:</strong> the original setup had zero recovery options. Even a basic snapshot policy meant recovery in minutes instead of a physical rebuild.</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- CASE STUDY 4 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">NETWORK ENGINEERING · GREENFIELD DESIGN</span>
+        <h2>Enterprise Network Deployment on MikroTik</h2>
+        <div class="meta-row">
+          <div><span class="k">ORG</span><span class="v">MTC Nissal d.o.o.</span></div>
+          <div><span class="k">TIMEFRAME</span><span class="v">Mar 2022</span></div>
+          <div><span class="k">SCALE</span><span class="v">100+ devices/users, 6 sites</span></div>
+          <div><span class="k">STACK</span><span class="v">MikroTik CCR2116, CRS326, RB260G</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>Design and deploy a network from scratch: a main hub housing servers and internet uplink, with six separate locations needing reliable, segmented connectivity back to that hub — plus remote access for staff and headroom to monitor and troubleshoot without on-site visits.</p>
+      </div>
+
+      <figure class="fig diagram-fig">
+        <div class="topo-diagram" role="img" aria-label="Main hub with servers and internet, CCR2116 core routers, fiber to central optical distribution on CRS326 switches, fanning out via fiber to six sites each with an RB260G edge switch: Plastifikacija, Poz, Izvlacionica, Presaonica, Magacin, Portirnica.">
+          <div class="topo-hub">
+            <div class="topo-node hub-node">Main Hub<br><span>Servers + Internet</span><br><span>CCR2116 (in/out)</span></div>
+          </div>
+          <div class="topo-link vert">fiber</div>
+          <div class="topo-node dist-node">Central Optical Distribution<br><span>CRS326</span></div>
+          <div class="topo-link vert">all-fiber, 100+ devices</div>
+          <div class="topo-sites">
+            <div class="topo-node site-node">Site 1<br><span>RB260G — Plastifikacija</span></div>
+            <div class="topo-node site-node">Site 2<br><span>RB260G — Poz</span></div>
+            <div class="topo-node site-node">Site 3<br><span>RB260G — Izvlačionica</span></div>
+            <div class="topo-node site-node">Site 4<br><span>RB260G — Presaonica</span></div>
+            <div class="topo-node site-node">Site 5<br><span>RB260G — Magacin</span></div>
+            <div class="topo-node site-node">Site 6<br><span>RB260G — Portirnica</span></div>
+          </div>
+        </div>
+        <figcaption>FIG. 7 — Network topology: main hub → central optical distribution → six production sites, all-fiber links</figcaption>
+      </figure>
+
+      <div class="case-block decisions">
+        <h4>Approach &amp; Decisions</h4>
+        <p><strong>Star topology with central fiber distribution</strong>, chosen for simpler fault isolation than a daisy-chained layout — a single link failure stays contained to one branch instead of cascading through the chain.</p>
+        <p><strong>All-fiber links end-to-end</strong>, including inter-building runs, to keep the topology consistent, avoid copper distance limitations, and simplify future troubleshooting.</p>
+        <p><strong>VLAN segmentation</strong> to separate traffic classes per site/department and limit the blast radius of any single compromised device.</p>
+        <p><strong>Layered remote access:</strong> WireGuard for fast, modern site-to-site/staff access, with OpenVPN and L2TP kept available for client compatibility.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Configuration Highlights</h4>
+        <ul>
+          <li><strong>Firewall rules:</strong> separated into input, forward, and output chains per interface group; default-deny posture with explicit allow rules per VLAN.</li>
+          <li><strong>VPN segmentation:</strong> WireGuard peers issued individual keys with scoped routing — staff remote access reaches only the subnets they need.</li>
+          <li><strong>QoS:</strong> Simple Queue and PCQ fair-queue bandwidth per user at peak hours, preventing any single workstation from saturating the inter-site fiber link during production shifts.</li>
+          <li><strong>Configuration backup:</strong> automated MikroTik export scheduled on all devices, written to a central share — the network is recoverable from scratch without on-site access.</li>
+        </ul>
+      </div>
+
+      <figure class="fig">
+        <img src="img/winbox-devices.jpg" alt="WinBox managed device list showing core routers, distribution switches and site switches across six locations" loading="lazy">
+        <figcaption>FIG. 8 — WinBox managed-device list: core routers (CCR2116), distribution switches (CRS326), and site switches (RB260G) across all six locations (addresses/credentials redacted)</figcaption>
+      </figure>
+
+      <div class="case-block">
+        <h4>Deployed Equipment</h4>
+        <table class="eq-table">
+          <thead><tr><th>Device</th><th>Qty</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>MikroTik CCR2116</td><td>2</td><td>Core routers — inside/outside perimeter, uplink, routing, firewall, VPN</td></tr>
+            <tr><td>MikroTik CRS326</td><td>5</td><td>Distribution switches — fiber optical ring, VLAN tagging, inter-site uplinks</td></tr>
+            <tr><td>MikroTik RB260G</td><td>9</td><td>Edge switches at production sites</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="case-block outcome">
+        <h4>Monitoring &amp; Ongoing Operations</h4>
+        <p>Managed entirely remotely via WinBox over a VPN tunnel. The Dude provides a live topology map with per-link traffic graphs and alerting on interface flaps or unreachable nodes — issues are typically detected and diagnosed before users report them. SNMP polling covers all 16 devices. Configuration exports are scheduled automatically and stored centrally, meaning any device can be replaced and fully restored without an on-site visit.</p>
+        <p>A documented, segmented, remotely-manageable network spanning a main hub and six production sites with 100+ devices — replacing entirely ad-hoc, undocumented connectivity.</p>
+      </div>
+    </article>
+
+    <!-- CASE STUDY 5 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">RF ENGINEERING · INDEPENDENT R&amp;D</span>
+        <h2>Meshtastic LoRa Mesh Network — Device Engineering &amp; RF Optimization</h2>
+        <div class="meta-row">
+          <div><span class="k">TIMEFRAME</span><span class="v">Feb 2025 – Present</span></div>
+          <div><span class="k">HARDWARE</span><span class="v">ESP32, LoRa (868 MHz ISM)</span></div>
+          <div><span class="k">TOOLS</span><span class="v">Meshtastic firmware, Jugomesh</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>Real-world RF behavior rarely matches datasheet promises. The goal was to understand the actual limits of long-range, low-power LoRa mesh communication — not in theory, but by building, deploying, and measuring real nodes in real conditions.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Approach</h4>
+        <ul>
+          <li>Engineered and configured Meshtastic nodes on ESP32 hardware with 868 MHz LoRa transceivers.</li>
+          <li>Designed and iterated on antenna setups, testing how placement and orientation changed propagation and range.</li>
+          <li>Field-tested message routing, latency, and reliability across rural and urban scenarios, in line-of-sight and non-line-of-sight conditions, feeding measured data (via Jugomesh) back into node placement decisions.</li>
+        </ul>
+      </div>
+
+      <figure class="fig fig-pair">
+        <div>
+          <img src="img/lora-nodes.jpg" alt="Paired ESP32/LoRa nodes at 868MHz with OLED telemetry display" loading="lazy">
+          <figcaption>FIG. 9 — Paired ESP32/LoRa nodes (868 MHz) with OLED telemetry display</figcaption>
+        </div>
+        <div>
+          <img src="img/rooftop-antenna.jpg" alt="Rooftop directional antenna mount for range testing" loading="lazy">
+          <figcaption>FIG. 10 — Rooftop directional antenna mount for range testing</figcaption>
+        </div>
+      </figure>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>An iteratively-tuned mesh network with measurably improved coverage and resilience, grounded in field data rather than assumptions — plus a practical understanding of where RF theory and real-world deployment diverge.</p>
+      </div>
+    </article>
+
+    <!-- CASE STUDY 6 -->
+    <article class="case">
+      <div class="case-head">
+        <span class="tag">DATA TOOLING · PYTHON &amp; WEB</span>
+        <h2>Meshcore Data Collection &amp; map.msh.rs</h2>
+        <div class="meta-row">
+          <div><span class="k">RELATED TO</span><span class="v">Meshtastic LoRa mesh, above</span></div>
+          <div><span class="k">ROLE</span><span class="v">Sole engineer, end-to-end</span></div>
+          <div><span class="k">STACK</span><span class="v">Python, Cloudflare Tunnel, map.msh.rs</span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>Field-testing the mesh network produced telemetry from USB companion devices, but no easy way to see network health at a glance — reading raw logs node-by-node doesn't scale, and the network needed to be visible and shareable without exposing anything insecurely to the internet.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Approach</h4>
+        <ul>
+          <li>Wrote Python scripts to collect and process telemetry from USB companion devices in the field.</li>
+          <li>Built <strong>map.msh.rs</strong>, a live web map visualizing repeater and companion node status across the mesh.</li>
+          <li>Exposed the map securely via a Cloudflare tunnel, avoiding open inbound ports or a public-facing server.</li>
+        </ul>
+      </div>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>Real-time visibility into mesh network health from any browser, replacing manual log-checking with a live, shareable map — accessible over a secure tunnel with no exposed infrastructure.</p>
+        <p class="live-links">LIVE LINKS: <a href="https://meshcore.rs" target="_blank" rel="noopener">meshcore.rs</a> · <a href="https://map.msh.rs" target="_blank" rel="noopener">map.msh.rs</a></p>
+      </div>
+
+      <figure class="fig">
+        <img src="img/meshcore-map.jpg" alt="map.msh.rs live network map showing repeater and companion node status" loading="lazy">
+        <figcaption>FIG. 11 — map.msh.rs live network map, showing repeater and companion node status</figcaption>
+      </figure>
+    </article>
+
+  </section>
+
+  <!-- OPS / LEADERSHIP -->
+  <section class="ops" id="ops">
+    <div class="ops-inner">
+      <p class="section-label">03 / OPERATIONS &amp; LEADERSHIP</p>
+      <h2>Running infrastructure is a people problem too</h2>
+      <p class="ops-lead">Alongside the systems work above, I've spent most of my career as the senior technical person on the team — which means translating "what I built" into "why it matters" and "how you maintain it," on a daily basis.</p>
+
+      <div class="ops-cols">
+        <div class="ops-col">
+          <h4>Team Leadership</h4>
+          <ul>
+            <li>Led and trained IT teams of up to 7 staff across two organizations (MTC Nissal, Abanqo AG).</li>
+            <li>Set support standards, onboarding procedures, and troubleshooting methodology for new team members.</li>
+            <li>Mentored staff on diagnosing issues from first principles rather than following scripts.</li>
+          </ul>
+        </div>
+        <div class="ops-col">
+          <h4>Documentation &amp; Process</h4>
+          <ul>
+            <li>Implemented the osTicket support system, including escalation procedures and SLA tracking.</li>
+            <li>Wrote architecture and configuration documentation for handoff (remote call center build, network deployments).</li>
+            <li>Regularly translated complex infrastructure decisions into plain explanations for non-technical stakeholders.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="history-grid">
+        <div class="history-col">
+          <h4>Professional History</h4>
+          <div class="history-row"><span>IT Support / Team Lead — MTC Nissal d.o.o.</span><span>Jan 2019 – Present</span></div>
+          <div class="history-row"><span>IT Operations Manager — Abanqo AG</span><span>Aug 2018 – Jan 2019</span></div>
+          <div class="history-row"><span>IT Manager — C.I.M. College</span><span>Apr 2015 – Jun 2018</span></div>
+        </div>
+        <div class="history-col">
+          <h4>Certifications &amp; Education</h4>
+          <div class="history-row"><span>Certified Computer Network Administrator</span><span>IT Academy, Belgrade</span></div>
+          <div class="history-row"><span>Electrical Technician</span><span>Tech. School "Branko Pešić", Belgrade</span></div>
+          <h4 class="lang-h">Languages &amp; Availability</h4>
+          <p class="langs">Serbian (native) · English (professional, C1+) · Finnish (basic). Based in Niš, Serbia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer class="contact" id="contact">
+    <div class="contact-inner">
+      <p class="section-label">04 / CONTACT</p>
+      <h2>Let's talk infrastructure.</h2>
+      <div class="contact-links">
+        <a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a>
+        <a href="tel:+38161160228 1">+381 61 160 22 81</a>
+        <a href="https://linkedin.com/in/zeljko-tripcevski" target="_blank" rel="noopener">linkedin.com/in/zeljko-tripcevski</a>
+      </div>
+      <p class="foot-note">© 2026 Zeljko Tripcevski. Niš, Serbia.</p>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>
