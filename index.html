@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zeljko Tripcevski — Systems &amp; Infrastructure Engineering Portfolio</title>
-<meta name="description" content="Production infrastructure, virtualization, networking and RF engineering case studies by Zeljko Tripcevski.">
+<title>Zeljko Tripcevski — Systems, Infrastructure &amp; DevOps Engineering Portfolio</title>
+<meta name="description" content="Production infrastructure, virtualization, networking, DevOps/CI-CD tooling and RF engineering case studies by Zeljko Tripcevski.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -18,7 +18,7 @@
     <span class="dot" aria-hidden="true"></span>
     <span class="status-text">root@ztripcevski:~$ <span class="cursor">_</span></span>
     <nav class="statusbar-nav">
-      <a href="#work">work</a>
+      <a href="#work">devops</a>
       <a href="#stack">stack</a>
       <a href="#ops">leadership</a>
       <a href="#contact">contact</a>
@@ -32,13 +32,14 @@
   <section class="hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="eyebrow">SYSTEMS &amp; INFRASTRUCTURE ENGINEERING PORTFOLIO</p>
+      <p class="eyebrow">SYSTEMS, INFRASTRUCTURE &amp; DEVOPS ENGINEERING PORTFOLIO</p>
       <h1>Zeljko Tripcevski</h1>
-      <p class="role">Systems Engineer — Virtualization, Networking &amp; Production Infrastructure</p>
-      <p class="hero-sub">7+ years running production environments. Case studies below, not coursework — real migrations, real networks, real failures diagnosed under load.</p>
+      <p class="role">Systems Engineer — Virtualization, Networking &amp; Production Infrastructure, now building toward DevOps</p>
+      <p class="hero-sub">7+ years running production environments, now applying that base to Docker, CI/CD and automated delivery pipelines. Case studies below, not coursework — real migrations, real networks, real pipelines shipping real images.</p>
       <div class="hero-meta">
         <div><span class="k">LOCATION</span><span class="v">Niš, Serbia</span></div>
         <div><span class="k">EXPERIENCE</span><span class="v">7+ yrs production</span></div>
+        <div><span class="k">FOCUS</span><span class="v">DevOps — Docker, CI/CD, GitHub Actions</span></div>
         <div><span class="k">CONTACT</span><span class="v"><a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a></span></div>
         <div><span class="k">PROFILE</span><span class="v"><a href="https://linkedin.com/in/zeljko-tripcevski" target="_blank" rel="noopener">linkedin.com/in/zeljko-tripcevski</a></span></div>
       </div>
@@ -81,7 +82,11 @@
       </div>
       <div class="stack-group">
         <span class="stack-label">LANGUAGES &amp; TOOLS</span>
-        <div class="chips"><span>Python</span><span>SQL</span><span>Shell</span><span>SSH</span></div>
+        <div class="chips"><span>Python</span><span>Flask</span><span>SQL</span><span>Shell</span><span>SSH</span></div>
+      </div>
+      <div class="stack-group">
+        <span class="stack-label">DEVOPS &amp; CI/CD</span>
+        <div class="chips"><span>Docker</span><span>Docker Compose</span><span>Docker Hub</span><span>GitHub Actions</span><span>CI/CD Pipelines</span></div>
       </div>
       <div class="stack-group">
         <span class="stack-label">NETWORKING</span>
@@ -97,6 +102,69 @@
   <!-- WORK -->
   <section class="work" id="work">
     <p class="section-label work-label">02 / CASE STUDIES</p>
+
+    <!-- CASE STUDY 0: DEVOPS -->
+    <article class="case devops-case">
+      <div class="case-head">
+        <span class="tag">DEVOPS · CONTAINERIZATION &amp; CI/CD</span>
+        <h2>Dockerized Monitoring Tools with Automated CI/CD Pipelines</h2>
+        <div class="meta-row">
+          <div><span class="k">TYPE</span><span class="v">Personal / portfolio projects</span></div>
+          <div><span class="k">ROLE</span><span class="v">Sole developer, end-to-end</span></div>
+          <div><span class="k">STACK</span><span class="v">Python, Docker, GitHub Actions, Docker Hub</span></div>
+          <div><span class="k">REPOS</span><span class="v"><a href="https://github.com/zeljkotr" target="_blank" rel="noopener">github.com/zeljkotr</a></span></div>
+        </div>
+      </div>
+
+      <div class="case-block">
+        <h4>Challenge</h4>
+        <p>Writing a working Python script is one thing — shipping it the way production tooling actually gets shipped is another. The goal was to move two monitoring scripts from "runs on my machine" to a repeatable pipeline: containerized, version-controlled, automatically built and tested, and automatically published — the same delivery model used in real DevOps roles, not a one-off deploy.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Project A — Server Ping Monitor with Email Alerts</h4>
+        <p>A Python monitor (<code>subprocess</code>, <code>datetime</code>, <code>smtplib</code>) that pings a list of servers on a schedule and emails an alert the moment one goes unreachable. Set-based deduplication tracks which hosts are already known-down, so a flapping link triggers one alert instead of flooding the inbox every cycle. Windows-specific fixes — TTL-based reachability checks, <code>CREATE_NO_WINDOW</code> to keep it silent as a background task, and explicit UTF-8 encoding — keep it reliable across both the Windows and Linux hosts it runs on.</p>
+      </div>
+
+      <div class="case-block">
+        <h4>Project B — Flask System-Monitor Dashboard</h4>
+        <p>A small Flask app (<code>app.py</code>, <code>monitor.py</code>, <code>alerts.py</code>, <code>config.py</code>) serving a live web dashboard of CPU, RAM, disk, network throughput, uptime, temperature, the top 5 processes by resource use, and active SSH sessions — running continuously on the Ubuntu server and reachable from any device on the network.</p>
+      </div>
+
+      <div class="case-block decisions">
+        <h4>Key Decisions</h4>
+        <p><strong>Docker over bare scripts:</strong> both tools ship as images, not loose Python files — the same environment on the Windows dev machine, the Ubuntu server, and anywhere else the image gets pulled.</p>
+        <p><strong>GitHub Actions over manual builds:</strong> every push to <code>main</code> triggers a workflow that builds the image and pushes it straight to Docker Hub — no manual <code>docker build</code> / <code>docker push</code> step to forget or get wrong.</p>
+        <p><strong>Alert deduplication over raw ping-and-email:</strong> a naive version of the monitor would re-alert every cycle a host stays down; tracking already-alerted hosts in a set turned a spammy script into one that respects the inbox.</p>
+      </div>
+
+      <figure class="fig diagram-fig">
+        <div class="ba-diagram" role="img" aria-label="Before: run the script manually on a laptop, no visibility, alerts can flood the inbox. After: push to GitHub, GitHub Actions builds and tests the Docker image, pushes it to Docker Hub, image is pulled and redeployed on the Ubuntu server, deduplicated alerts only.">
+          <div class="ba-col">
+            <span class="ba-title">BEFORE</span>
+            <div class="ba-box risk">Local Script<br><span>Run manually</span><br><span>No CI, no image</span></div>
+            <div class="ba-link">ad-hoc</div>
+            <div class="ba-box plc">Whoever's Laptop<br><span>Only runs when remembered</span></div>
+            <span class="ba-flag risk-flag">no build history, no repeatability</span>
+          </div>
+          <div class="ba-arrow">CI/CD →</div>
+          <div class="ba-col">
+            <span class="ba-title">AFTER</span>
+            <div class="ba-box safe">git push → GitHub Actions<br><span>Build + test image</span></div>
+            <div class="ba-link">auto-publish</div>
+            <div class="ba-box plc">Docker Hub → Ubuntu Server<br><span>Pull &amp; redeploy container</span></div>
+            <span class="ba-flag safe-flag">every push ships a versioned, working image</span>
+          </div>
+        </div>
+        <figcaption>FIG. 1 — CI/CD pipeline: from manual script execution to automated build → publish → deploy on every push</figcaption>
+      </figure>
+
+      <div class="case-block outcome">
+        <h4>Outcome</h4>
+        <p>Two working, Dockerized tools with fully automated pipelines: every commit triggers a GitHub Actions build that pushes a fresh image to Docker Hub, ready to pull and run anywhere. Both are part of a structured, ongoing transition from systems engineering into DevOps — applying container and pipeline practices to real, running infrastructure rather than tutorial exercises.</p>
+        <p class="live-links">REPOS: <a href="https://github.com/zeljkotr/Server-monitor-with-email-alert" target="_blank" rel="noopener">Server-monitor-with-email-alert</a> · <a href="https://github.com/zeljkotr/system-monitor" target="_blank" rel="noopener">system-monitor</a> · DOCKER HUB: <a href="https://hub.docker.com/u/zeljkotr" target="_blank" rel="noopener">hub.docker.com/u/zeljkotr</a></p>
+      </div>
+    </article>
 
     <!-- CASE STUDY 1 -->
     <article class="case">
@@ -134,7 +202,7 @@
 
       <figure class="fig">
         <img src="img/zvol-truenas.jpg" alt="TrueNAS SCALE ZVOL configuration for the migrated VM, 355GB allocated" loading="lazy">
-        <figcaption>FIG. 1 — TrueNAS SCALE: ZVOL for the migrated VM (355 GB allocated, ZFS dataset view, credentials redacted)</figcaption>
+        <figcaption>FIG. 3 — TrueNAS SCALE: ZVOL for the migrated VM (355 GB allocated, ZFS dataset view, credentials redacted)</figcaption>
       </figure>
 
       <div class="case-block outcome">
@@ -186,11 +254,11 @@
       <figure class="fig fig-pair">
         <div>
           <img src="img/ollama-webui-apps.jpg" alt="Ollama and Open WebUI running as TrueNAS apps" loading="lazy">
-          <figcaption>FIG. 2 — Ollama + Open WebUI as TrueNAS apps</figcaption>
+          <figcaption>FIG. 4 — Ollama + Open WebUI as TrueNAS apps</figcaption>
         </div>
         <div>
           <img src="img/openwebui-chat.jpg" alt="Open WebUI chat interface running Llama 3.1 8B" loading="lazy">
-          <figcaption>FIG. 3 — Open WebUI chat interface, Llama 3.1 8B</figcaption>
+          <figcaption>FIG. 5 — Open WebUI chat interface, Llama 3.1 8B</figcaption>
         </div>
       </figure>
 
@@ -252,17 +320,17 @@
             <span class="ba-flag safe-flag">Snapshots + scheduled backup — recoverable</span>
           </div>
         </div>
-        <figcaption>FIG. 4 — Architecture: physical Windows XP host (before) → virtualized on VMware with snapshot/backup (after), PLC connectivity preserved</figcaption>
+        <figcaption>FIG. 6 — Architecture: physical Windows XP host (before) → virtualized on VMware with snapshot/backup (after), PLC connectivity preserved</figcaption>
       </figure>
 
       <figure class="fig fig-pair">
         <div>
           <img src="img/scada-process-parameters.png" alt="WinCC PEvisio process parameter screen running inside the virtualized Windows XP guest on VMware Workstation, showing live extrusion press setpoints and pressures" loading="lazy">
-          <figcaption>FIG. 5 — Pressezi SCADA (WinCC PEvisio) running in the migrated Windows XP VM on VMware Workstation — process parameters screen, live production values</figcaption>
+          <figcaption>FIG. 7 — Pressezi SCADA (WinCC PEvisio) running in the migrated Windows XP VM on VMware Workstation — process parameters screen, live production values</figcaption>
         </div>
         <div>
           <img src="img/scada-extrusion-line-hmi.png" alt="WinCC PEvisio extrusion line HMI mimic screen inside the same VM, showing the press, containers and pushers with live sensor values" loading="lazy">
-          <figcaption>FIG. 6 — Same VM: live extrusion-line HMI mimic, confirming PLC I/O and sensor feedback survived the migration intact</figcaption>
+          <figcaption>FIG. 8 — Same VM: live extrusion-line HMI mimic, confirming PLC I/O and sensor feedback survived the migration intact</figcaption>
         </div>
       </figure>
 
@@ -316,7 +384,7 @@
             <div class="topo-node site-node">Site 6<br><span>RB260G — Portirnica</span></div>
           </div>
         </div>
-        <figcaption>FIG. 7 — Network topology: main hub → central optical distribution → six production sites, all-fiber links</figcaption>
+        <figcaption>FIG. 9 — Network topology: main hub → central optical distribution → six production sites, all-fiber links</figcaption>
       </figure>
 
       <div class="case-block decisions">
@@ -339,7 +407,7 @@
 
       <figure class="fig">
         <img src="img/winbox-devices.jpg" alt="WinBox managed device list showing core routers, distribution switches and site switches across six locations" loading="lazy">
-        <figcaption>FIG. 8 — WinBox managed-device list: core routers (CCR2116), distribution switches (CRS326), and site switches (RB260G) across all six locations (addresses/credentials redacted)</figcaption>
+        <figcaption>FIG. 10 — WinBox managed-device list: core routers (CCR2116), distribution switches (CRS326), and site switches (RB260G) across all six locations (addresses/credentials redacted)</figcaption>
       </figure>
 
       <div class="case-block">
@@ -390,11 +458,11 @@
       <figure class="fig fig-pair">
         <div>
           <img src="img/lora-nodes.jpg" alt="Paired ESP32/LoRa nodes at 868MHz with OLED telemetry display" loading="lazy">
-          <figcaption>FIG. 9 — Paired ESP32/LoRa nodes (868 MHz) with OLED telemetry display</figcaption>
+          <figcaption>FIG. 11 — Paired ESP32/LoRa nodes (868 MHz) with OLED telemetry display</figcaption>
         </div>
         <div>
           <img src="img/rooftop-antenna.jpg" alt="Rooftop directional antenna mount for range testing" loading="lazy">
-          <figcaption>FIG. 10 — Rooftop directional antenna mount for range testing</figcaption>
+          <figcaption>FIG. 12 — Rooftop directional antenna mount for range testing</figcaption>
         </div>
       </figure>
 
@@ -438,7 +506,7 @@
 
       <figure class="fig">
         <img src="img/meshcore-map.jpg" alt="map.msh.rs live network map showing repeater and companion node status" loading="lazy">
-        <figcaption>FIG. 11 — map.msh.rs live network map, showing repeater and companion node status</figcaption>
+        <figcaption>FIG. 13 — map.msh.rs live network map, showing repeater and companion node status</figcaption>
       </figure>
     </article>
 
