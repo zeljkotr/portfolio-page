@@ -3,173 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zeljko Tripcevski — Site Reliability & DevOps Engineering Portfolio</title>
-<meta name="description" content="Production infrastructure, systemd services, zero-trust deployment and CI/CD case studies by Zeljko Tripcevski.">
+<title>Zeljko Tripcevski — DevOps & Site Reliability Engineer</title>
+<meta name="description" content="DevOps and Site Reliability Engineering portfolio — Zeljko Tripcevski.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0e14;
-    --panel:#10151c;
-    --panel2:#161d27;
-    --border:#232c38;
-    --text:#dde3ea;
-    --muted:#7b8698;
-    --amber:#d4a017;
-    --amber-bright:#f0c040;
-    --green:#3fb950;
-    --coral:#f0605c;
-    --teal:#2dd4bf;
-    --mono:'IBM Plex Mono', ui-monospace, monospace;
-    --sans:'IBM Plex Sans', system-ui, sans-serif;
+    --bg:#fbfaf8;
+    --panel:#ffffff;
+    --border:#e3e0da;
+    --ink:#24272c;
+    --body:#3c4048;
+    --muted:#767b84;
+    --accent:#2c3e63;
+    --accent-line:#c9a24b;
+    --serif:'Source Serif 4', Georgia, serif;
+    --sans:'Source Sans 3', system-ui, sans-serif;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg);
-    color:var(--text);
+    color:var(--body);
     font-family:var(--sans);
-    line-height:1.6;
-    font-size:16px;
+    line-height:1.65;
+    font-size:16.5px;
+    -webkit-font-smoothing:antialiased;
   }
-  a{color:var(--amber-bright); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  ::selection{background:var(--amber); color:#151a12;}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent;}
+  a:hover{border-bottom-color:var(--accent);}
+  ::selection{background:#dfe6f0;}
 
-  /* focus visibility */
-  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
-
-  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
   /* NAV */
-  nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,14,20,.92); backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--border);
+  nav{border-bottom:1px solid var(--border); background:var(--panel);}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  nav .brand{font-family:var(--serif); font-size:17px; color:var(--ink); font-weight:600;}
+  nav .links{display:flex; gap:26px; font-size:14px;}
+  nav .links a{color:var(--muted); border-bottom:none;}
+  nav .links a:hover{color:var(--accent);}
+
+  /* HEADER */
+  header.hero{padding:68px 0 52px; border-bottom:1px solid var(--border); background:var(--panel);}
+  .eyebrow{font-size:13px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; margin-bottom:16px;}
+  h1.name{font-family:var(--serif); font-size:clamp(30px,4.6vw,44px); font-weight:700; color:var(--ink); margin-bottom:8px; letter-spacing:-.01em;}
+  .role-line{font-family:var(--serif); font-size:19px; color:var(--accent); font-style:italic; margin-bottom:22px;}
+  .lede{max-width:600px; color:var(--body); font-size:16px;}
+
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:6px 22px; margin-top:26px;
+    font-size:14px; color:var(--muted); border-top:1px solid var(--border); padding-top:20px;
   }
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:56px;}
-  nav .brand{font-family:var(--mono); font-size:13px; color:var(--green);}
-  nav .links{display:flex; gap:22px; font-family:var(--mono); font-size:13px;}
-  nav .links a{color:var(--muted);}
-  nav .links a:hover{color:var(--amber-bright); text-decoration:none;}
-
-  /* HERO */
-  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--border);}
-  .boot-log{
-    font-family:var(--mono); font-size:12.5px; color:var(--muted);
-    background:var(--panel); border:1px solid var(--border); border-radius:6px;
-    padding:16px 18px; margin-bottom:36px; min-height:168px;
-  }
-  .boot-log .ok{color:var(--green); font-weight:600;}
-  .boot-log .line{opacity:0; animation:reveal .12s forwards;}
-  @keyframes reveal{to{opacity:1;}}
-  .boot-cursor{display:inline-block; width:8px; height:14px; background:var(--amber-bright); vertical-align:middle; animation:blink 1s step-end infinite;}
-  @keyframes blink{50%{opacity:0;}}
-
-  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--teal); text-transform:uppercase; margin-bottom:14px;}
-  h1.name{font-family:var(--mono); font-size:clamp(32px,5vw,52px); font-weight:700; color:#fff; letter-spacing:-.01em; margin-bottom:10px;}
-  .role-line{font-size:19px; color:var(--amber-bright); font-weight:500; margin-bottom:18px;}
-  .lede{max-width:640px; color:var(--muted); font-size:15.5px; margin-bottom:28px;}
-
-  .meta-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:8px;}
-  .meta-item{border:1px solid var(--border); background:var(--panel); border-radius:6px; padding:12px 14px;}
-  .meta-item .l{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:5px;}
-  .meta-item .v{font-size:14px; color:var(--text); font-weight:500;}
-  .meta-item .v a{color:var(--amber-bright);}
-
-  /* STATUS BADGE (systemctl-flavored) */
-  .svc-badge{
-    display:inline-flex; align-items:center; gap:7px;
-    font-family:var(--mono); font-size:12px; color:var(--green);
-    background:rgba(63,185,80,.08); border:1px solid rgba(63,185,80,.35);
-    border-radius:20px; padding:4px 12px 4px 10px; margin-bottom:18px;
-  }
-  .svc-badge .dot{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green);}
+  .contact-row a{color:var(--body);}
+  .contact-row a:hover{color:var(--accent);}
 
   /* SECTIONS */
-  section{padding:56px 0; border-bottom:1px solid var(--border);}
-  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:28px;}
-  .sec-num{font-family:var(--mono); color:var(--amber); font-size:13px;}
-  .sec-title{font-family:var(--mono); font-size:22px; font-weight:600; color:#fff;}
-  .sec-sub{color:var(--muted); font-size:14.5px; margin-top:-18px; margin-bottom:28px; max-width:640px;}
-
-  /* STACK */
-  .stack-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px;}
-  .stack-card{border:1px solid var(--border); background:var(--panel); border-radius:8px; padding:16px 18px;}
-  .stack-card .cat{font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--teal); text-transform:uppercase; margin-bottom:10px;}
-  .chip-row{display:flex; flex-wrap:wrap; gap:6px;}
-  .chip{font-family:var(--mono); font-size:12px; background:var(--panel2); border:1px solid var(--border); border-radius:4px; padding:3px 9px; color:var(--text);}
-
-  /* CASE STUDY */
-  .case{border:1px solid var(--border); background:var(--panel); border-radius:10px; padding:32px; margin-bottom:28px;}
-  .case.flagship{border-color:var(--amber); box-shadow:0 0 0 1px rgba(212,160,23,.15);}
-  .case-kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--amber); margin-bottom:10px;}
-  .case h3{font-size:22px; font-weight:700; color:#fff; margin-bottom:16px; line-height:1.3;}
-  .case-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:22px; font-size:13px;}
-  .case-meta .l{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted);}
-  .case-meta .v{color:var(--text);}
-  .case-meta .v a{color:var(--amber-bright);}
-  .case h4{font-family:var(--mono); font-size:13px; color:var(--teal); text-transform:uppercase; letter-spacing:.05em; margin:22px 0 10px;}
-  .case p{color:#c7ced8; font-size:14.5px; margin-bottom:12px;}
-  .case ul{margin:0 0 12px 20px; color:#c7ced8; font-size:14.5px;}
-  .case li{margin-bottom:8px;}
-  .case li strong{color:var(--text);}
-
-  .decision-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin:14px 0 4px;}
-  .decision{background:var(--panel2); border:1px solid var(--border); border-left:3px solid var(--amber); border-radius:6px; padding:14px 16px;}
-  .decision .t{font-weight:600; color:var(--amber-bright); font-size:13.5px; margin-bottom:5px;}
-  .decision .d{color:var(--muted); font-size:13px;}
-
-  /* pipeline diagram */
-  .pipeline{
-    font-family:var(--mono); font-size:12.5px; color:var(--muted);
-    background:#080b10; border:1px solid var(--border); border-radius:6px;
-    padding:18px 20px; margin:18px 0; overflow-x:auto; white-space:pre;
+  section{padding:52px 0; border-bottom:1px solid var(--border);}
+  .sec-title{
+    font-family:var(--serif); font-size:22px; font-weight:600; color:var(--ink);
+    margin-bottom:8px; padding-bottom:10px; border-bottom:2px solid var(--accent-line);
+    display:inline-block;
   }
-  .pipeline .stage{color:var(--teal);}
-  .pipeline .arrow{color:var(--amber);}
-  .pipeline .ok{color:var(--green);}
-  .pipeline .lock{color:var(--coral);}
+  .sec-wrap-title{margin-bottom:30px;}
+  .sec-sub{color:var(--muted); font-size:15px; max-width:600px; margin-top:10px;}
 
-  .case-footer{margin-top:18px; padding-top:16px; border-top:1px solid var(--border); font-family:var(--mono); font-size:12.5px; color:var(--muted);}
-  .case-footer a{color:var(--amber-bright);}
+  p{margin-bottom:14px;}
 
-  /* condensed systems cards */
-  .mini-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;}
-  .mini-card{border:1px solid var(--border); background:var(--panel); border-radius:8px; padding:20px;}
-  .mini-card .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:8px;}
-  .mini-card h4{font-size:16px; color:#fff; margin-bottom:8px;}
-  .mini-card p{font-size:13.5px; color:var(--muted); margin-bottom:8px;}
-  .mini-card .tag{font-family:var(--mono); font-size:11px; color:var(--amber-bright);}
+  /* SKILLS */
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px 32px;}
+  .skill-cat h4{font-size:13px; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); margin-bottom:10px; font-weight:600;}
+  .skill-cat p{color:var(--body); font-size:14.5px; margin-bottom:0; line-height:1.7;}
 
-  /* leadership */
-  .lead-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;}
-  .lead-card h4{font-family:var(--mono); font-size:14px; color:var(--amber-bright); margin-bottom:10px;}
-  .lead-card ul{margin-left:18px; color:#c7ced8; font-size:14px;}
-  .lead-card li{margin-bottom:6px;}
+  /* CASE STUDIES */
+  .case{padding:30px 0; border-bottom:1px solid var(--border);}
+  .case:last-child{border-bottom:none; padding-bottom:0;}
+  .case:first-child{padding-top:0;}
+  .case-kicker{font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;}
+  .case h3{font-family:var(--serif); font-size:21px; font-weight:600; color:var(--ink); margin-bottom:14px; line-height:1.35;}
+  .case-meta{
+    display:flex; flex-wrap:wrap; gap:6px 26px; font-size:13.5px; color:var(--muted);
+    margin-bottom:18px; padding-bottom:16px; border-bottom:1px solid var(--border);
+  }
+  .case-meta b{color:var(--body); font-weight:600;}
+  .case h4{font-size:14px; color:var(--accent); font-weight:600; margin:18px 0 8px;}
+  .case ul{margin:0 0 12px 20px;}
+  .case li{margin-bottom:7px; font-size:15px;}
+  .case li strong{color:var(--ink);}
 
-  .timeline-row{display:flex; justify-content:space-between; gap:12px; font-size:14px; padding:8px 0; border-bottom:1px dashed var(--border);}
+  .decision-list{margin:14px 0 4px; padding-left:0; list-style:none;}
+  .decision-list li{
+    padding:12px 0 12px 18px; border-left:3px solid var(--accent-line);
+    margin-bottom:10px; background:#fbf8f0;
+  }
+  .decision-list .t{font-weight:600; color:var(--ink); font-size:14.5px; display:block; margin-bottom:3px;}
+  .decision-list .d{color:var(--muted); font-size:13.5px;}
+
+  .flow{
+    font-size:14px; color:var(--body); margin:16px 0; padding:16px 20px;
+    background:#f4f2ee; border-radius:4px; border:1px solid var(--border);
+  }
+  .flow ol{margin-left:18px;}
+  .flow li{margin-bottom:6px;}
+
+  .case-footer{margin-top:14px; font-size:13.5px; color:var(--muted);}
+
+  /* mini systems cards */
+  .mini-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px 32px;}
+  .mini-card h4{font-family:var(--serif); font-size:16px; color:var(--ink); margin-bottom:6px; font-weight:600;}
+  .mini-card .k{font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:6px;}
+  .mini-card p{font-size:14px; color:var(--body); margin-bottom:6px;}
+  .mini-card .tag{font-size:12.5px; color:var(--accent);}
+
+  /* experience timeline */
+  .timeline-row{
+    display:flex; justify-content:space-between; gap:16px; padding:12px 0;
+    border-bottom:1px solid var(--border); font-size:15px;
+  }
   .timeline-row:last-child{border-bottom:none;}
-  .timeline-row .role{color:var(--text); font-weight:500;}
-  .timeline-row .when{font-family:var(--mono); color:var(--muted); font-size:12.5px; white-space:nowrap;}
+  .timeline-row .role{color:var(--ink); font-weight:600;}
+  .timeline-row .org{color:var(--muted); font-size:13.5px; display:block; margin-top:2px;}
+  .timeline-row .when{color:var(--muted); font-size:14px; white-space:nowrap; padding-top:2px;}
 
-  /* contact */
-  .contact-cta{text-align:left;}
-  .contact-cta h2{font-family:var(--mono); font-size:28px; color:#fff; margin-bottom:14px;}
-  .contact-links{display:flex; flex-wrap:wrap; gap:20px; font-family:var(--mono); font-size:14.5px; margin-top:18px;}
+  .cred-list{margin-left:18px; margin-bottom:0;}
+  .cred-list li{margin-bottom:8px; font-size:15px;}
 
-  footer{padding:32px 0; text-align:center; color:var(--muted); font-family:var(--mono); font-size:12px;}
+  /* footer / contact */
+  .contact-final h2{font-family:var(--serif); font-size:26px; color:var(--ink); margin-bottom:12px; font-weight:600;}
+  .contact-final p{color:var(--muted); max-width:520px;}
+  .contact-links{display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:18px; font-size:15px;}
+
+  footer.site-footer{padding:28px 0; text-align:center; color:var(--muted); font-size:13px;}
 
   @media (max-width:600px){
     nav .links{display:none;}
-    .case{padding:22px;}
-    section{padding:40px 0;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .boot-log .line{animation:none; opacity:1;}
-    .boot-cursor{animation:none;}
+    .mini-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -177,268 +146,176 @@
 
 <nav>
   <div class="wrap">
-    <div class="brand">zeljko@production:~$</div>
+    <div class="brand">Zeljko Tripcevski</div>
     <div class="links">
-      <a href="#flagship">deploy</a>
-      <a href="#stack">stack</a>
-      <a href="#systems">systems</a>
-      <a href="#ops">leadership</a>
-      <a href="#contact">contact</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <div class="boot-log" id="bootLog" aria-label="Simulated systemd boot sequence"></div>
-
-    <div class="eyebrow">Site Reliability &amp; DevOps Engineering</div>
+    <div class="eyebrow">DevOps &amp; Site Reliability Engineering</div>
     <h1 class="name">Zeljko Tripcevski</h1>
-    <div class="role-line">I keep services running, and I can prove it — with the units, pipelines, and access logs to show it.</div>
+    <div class="role-line">Infrastructure, automation, and reliable production systems</div>
     <p class="lede">
-      7+ years running production infrastructure — virtualization, networking, and now systemd-managed
-      services deployed behind zero-trust networking with gated CI/CD. Case studies below are live systems,
-      not coursework: real services with real uptime, real deploy pipelines, and real production/dev separation.
+      Seven years running production infrastructure — virtualization, networking, and systems administration —
+      now focused on DevOps and SRE practice: CI/CD pipelines, containerized delivery, and infrastructure that
+      stays up without someone watching it. The projects below are systems I designed, deployed, and continue
+      to operate, not exercises.
     </p>
-
-    <span class="svc-badge"><span class="dot"></span>zeljko-tripcevski.service — active (running)</span>
-
-    <div class="meta-grid">
-      <div class="meta-item"><div class="l">Location</div><div class="v">Niš, Serbia</div></div>
-      <div class="meta-item"><div class="l">Experience</div><div class="v">7+ yrs production</div></div>
-      <div class="meta-item"><div class="l">Focus</div><div class="v">DevOps / SRE — CI/CD, systemd, zero-trust ops</div></div>
-      <div class="meta-item"><div class="l">Contact</div><div class="v"><a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a></div></div>
+    <div class="contact-row">
+      <span>Niš, Serbia</span>
+      <a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a>
+      <a href="tel:+381611602281">+381 61 160 22 81</a>
+      <a href="https://linkedin.com/in/zeljko-tripcevski">LinkedIn</a>
+      <a href="https://github.com/zeljkotr">GitHub</a>
     </div>
   </div>
 </header>
 
-<section id="overview">
+<section id="skills">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">01</span><span class="sec-title">Overview</span></div>
-    <p class="sec-sub" style="margin-bottom:0;">
-      This site collects infrastructure and delivery projects I've designed, deployed, and operate day to day.
-      Each case study covers the problem, the operational decisions behind it, and how it's actually kept alive
-      in production — not just how it was built once.
-    </p>
-  </div>
-</section>
-
-<section id="stack">
-  <div class="wrap">
-    <div class="sec-head"><span class="sec-num">02</span><span class="sec-title">Core Stack</span></div>
-    <div class="stack-grid">
-      <div class="stack-card">
-        <div class="cat">CI/CD &amp; Delivery</div>
-        <div class="chip-row">
-          <span class="chip">GitHub Actions</span><span class="chip">Docker</span><span class="chip">Docker Compose</span>
-          <span class="chip">Docker Hub</span><span class="chip">systemd</span><span class="chip">Gated Deploys</span>
-        </div>
+    <div class="sec-wrap-title"><span class="sec-title">Core Skills</span></div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h4>CI/CD &amp; Delivery</h4>
+        <p>GitHub Actions, Docker, Docker Compose, Docker Hub, systemd, gated production deployments</p>
       </div>
-      <div class="stack-card">
-        <div class="cat">Zero-Trust &amp; Networking</div>
-        <div class="chip-row">
-          <span class="chip">Tailscale / WireGuard</span><span class="chip">VLAN</span><span class="chip">OpenVPN</span>
-          <span class="chip">L2TP</span><span class="chip">TCP/IP</span><span class="chip">DNS</span><span class="chip">QoS</span><span class="chip">SNMP</span>
-        </div>
+      <div class="skill-cat">
+        <h4>Networking &amp; Access</h4>
+        <p>Tailscale (WireGuard), VLAN segmentation, OpenVPN, L2TP, TCP/IP, DNS, QoS, SNMP</p>
       </div>
-      <div class="stack-card">
-        <div class="cat">Languages &amp; Data</div>
-        <div class="chip-row">
-          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">SQLite</span>
-          <span class="chip">SQL</span><span class="chip">Shell</span><span class="chip">SSH</span>
-        </div>
+      <div class="skill-cat">
+        <h4>Languages &amp; Data</h4>
+        <p>Python, Flask, SQLite, SQL, Shell scripting, SSH</p>
       </div>
-      <div class="stack-card">
-        <div class="cat">Infrastructure &amp; Virtualization</div>
-        <div class="chip-row">
-          <span class="chip">Linux</span><span class="chip">Windows Server</span><span class="chip">VMware</span>
-          <span class="chip">Hyper-V</span><span class="chip">KVM / QEMU</span><span class="chip">TrueNAS / ZFS</span><span class="chip">MikroTik</span>
-        </div>
+      <div class="skill-cat">
+        <h4>Infrastructure &amp; Virtualization</h4>
+        <p>Linux, Windows Server, VMware, Hyper-V, KVM/QEMU, TrueNAS/ZFS, MikroTik</p>
       </div>
-      <div class="stack-card">
-        <div class="cat">AI / LLM Infra</div>
-        <div class="chip-row">
-          <span class="chip">Ollama</span><span class="chip">Open WebUI</span><span class="chip">Local Inference</span>
-        </div>
+      <div class="skill-cat">
+        <h4>AI / LLM Infrastructure</h4>
+        <p>Ollama, Open WebUI, self-hosted local inference</p>
+      </div>
+      <div class="skill-cat">
+        <h4>Leadership</h4>
+        <p>Team leadership (up to 7 staff), IT operations management, documentation and support process design</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="flagship">
+<section id="projects">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">03</span><span class="sec-title">Flagship Case Study</span></div>
+    <div class="sec-wrap-title">
+      <span class="sec-title">Selected Projects</span>
+      <p class="sec-sub">Systems I designed end to end — architecture, deployment, and ongoing operation.</p>
+    </div>
 
-    <div class="case flagship">
-      <div class="case-kicker">DevOps · SRE · Zero-Trust Production Deployment</div>
-      <h3>Bailiff Sentinel — Financial Anomaly Detection, Run Like Production</h3>
-
-      <span class="svc-badge"><span class="dot"></span>paycheck-sentinel.service — active (running), enabled</span>
-
+    <div class="case">
+      <div class="case-kicker">DevOps · Production Deployment · Zero-Trust Access</div>
+      <h3>Bailiff Sentinel — Financial Anomaly Detection</h3>
       <div class="case-meta">
-        <div><div class="l">Role</div><div class="v">Sole engineer — design, build, deploy, operate</div></div>
-        <div><div class="l">Stack</div><div class="v">Python, Flask, SQLite, systemd, Tailscale, GitHub Actions</div></div>
-        <div><div class="l">Environments</div><div class="v">Dev/test + isolated production host</div></div>
-        <div><div class="l">Repo</div><div class="v"><a href="https://github.com/zeljkotr/bailiff-sentinel">github.com/zeljkotr/bailiff-sentinel</a></div></div>
+        <span><b>Role</b> Sole engineer — design, build, deploy, operate</span>
+        <span><b>Stack</b> Python, Flask, SQLite, systemd, Tailscale, GitHub Actions</span>
+        <span><b>Repository</b> <a href="https://github.com/zeljkotr/bailiff-sentinel">github.com/zeljkotr/bailiff-sentinel</a></span>
       </div>
 
-      <h4>Challenge</h4>
       <p>
-        Bank statement exports (XML, inconsistent schema and encoding depending on export settings) needed to be
-        checked for a specific fraud signature: money paid out to one account, then quietly returned by the bank
-        days later — usually a sign of a misdirected transfer. Any tool touching real account data had to run
-        somewhere that could never be exposed to the open internet, while still being reachable for daily use
-        and safe to update without risking the data it holds.
+        A web application that analyzes Serbian bank statement exports (XML, inconsistent schema and encoding
+        across branches) to detect a specific anomaly: a payment sent to one account, then quietly returned by
+        the bank days later — usually a sign of a misdirected transfer. Because the tool handles real account
+        data, it was built and operated with the same discipline as a small production service, not a personal
+        script.
       </p>
 
-      <h4>What Makes This an Ops Project, Not Just a Script</h4>
+      <h4>Design and operational decisions</h4>
       <ul>
-        <li><strong>Schema-agnostic parsing:</strong> auto-detects and flattens arbitrary/nested XML structures instead of hardcoding field names, and self-corrects encoding (UTF-8, UTF-16, CP1250) since bank exports arrive inconsistently encoded from different branches.</li>
-        <li><strong>Dev/prod separation:</strong> a development instance for testing changes, fully isolated from the production host handling real financial data — standard practice, applied here deliberately rather than skipped for a "personal" project.</li>
-        <li><strong>systemd-managed service:</strong> runs as a proper unit (<code>Restart=on-failure</code>, enabled at boot), not a terminal session someone has to remember to restart — survives reboots and crashes unattended.</li>
-        <li><strong>Zero public exposure:</strong> the production host has no open inbound ports. Access is entirely over a Tailscale (WireGuard) mesh — reachable from any authorized device, with nothing listening on the public internet to attack.</li>
-        <li><strong>Gated CI/CD:</strong> GitHub Actions builds and validates on every push, but deployment to the box holding real data requires a manually triggered workflow — a push to <code>main</code> is never automatically "go live."</li>
-        <li><strong>Idempotent schema migrations:</strong> the database checks and adds any missing columns on startup, so upgrades apply safely across versions with no manual migration step and no downtime.</li>
-        <li><strong>Fails loud, not messy:</strong> every error path returns structured JSON, never a raw stack trace or an HTML error page — and debug mode is explicitly off, since a debug console left reachable is a standing risk even on a private network.</li>
+        <li><strong>Schema-agnostic parsing</strong> — automatically detects and flattens nested XML structures rather than hardcoding field names, and self-corrects encoding (UTF-8, UTF-16, CP1250) since exports vary by branch and settings.</li>
+        <li><strong>Separate development and production environments</strong> — changes are validated on a test instance before reaching the server handling real financial data.</li>
+        <li><strong>Managed as a systemd service</strong> — runs continuously, restarts automatically on failure, and survives server reboots without manual intervention.</li>
+        <li><strong>No public network exposure</strong> — the production host has no open inbound ports; access is entirely through a Tailscale (WireGuard) mesh network.</li>
+        <li><strong>Gated deployment pipeline</strong> — GitHub Actions validates every change, but deployment to production requires a manually triggered workflow rather than deploying automatically on every push.</li>
+        <li><strong>Automatic, idempotent schema migrations</strong> — the database adds any missing columns on startup, so upgrades apply safely with no manual migration step or downtime.</li>
+        <li><strong>Structured error handling</strong> — every error path returns a clean response rather than a stack trace, with debug mode explicitly disabled.</li>
       </ul>
 
-      <h4>Deployment Pipeline</h4>
-      <div class="pipeline">git push origin main
-  <span class="arrow">→</span> <span class="stage">GitHub Actions: build + syntax check</span>  <span class="ok">[ OK ]</span>
-      <span class="lock">(deploy job waits for manual approval — production is gated)</span>
-  <span class="arrow">→</span> operator clicks "Run workflow"
-  <span class="arrow">→</span> <span class="stage">Tailscale OAuth: ephemeral, tag-scoped node joins tailnet</span>  <span class="ok">[ OK ]</span>
-  <span class="arrow">→</span> <span class="stage">SSH over private mesh IP → git pull, pip install, systemctl restart</span>  <span class="ok">[ OK ]</span>
-  <span class="arrow">→</span> ephemeral CI node disconnects, zero standing access left behind</div>
-
-      <h4>Key Decisions</h4>
-      <div class="decision-grid">
-        <div class="decision">
-          <div class="t">systemd over a screen session</div>
-          <div class="d">Crash recovery and boot-persistence without a human remembering it exists.</div>
-        </div>
-        <div class="decision">
-          <div class="t">Tailscale over a traditional VPN or open port</div>
-          <div class="d">Reachable from every authorized device — and from CI — without a static IP, a VPN client, or a single inbound port exposed to the internet.</div>
-        </div>
-        <div class="decision">
-          <div class="t">Manual deploy gate over full automation</div>
-          <div class="d">Production holds real account data. A push to <code>main</code> should never be the same action as "go live."</div>
-        </div>
-        <div class="decision">
-          <div class="t">Dev/prod split over one shared instance</div>
-          <div class="d">New checks and UI changes get validated on a throwaway instance before they ever touch the data that matters.</div>
-        </div>
+      <h4>Deployment pipeline</h4>
+      <div class="flow">
+        <ol>
+          <li>Change is pushed to the main branch; GitHub Actions runs a Python syntax check automatically.</li>
+          <li>Deployment to production is a separate, manually triggered step.</li>
+          <li>The pipeline authenticates to the private network using short-lived, tag-scoped OAuth credentials — no standing VPN keys or open ports.</li>
+          <li>It connects over SSH via the private network, pulls the latest code, installs dependencies, and restarts the service.</li>
+          <li>Temporary credentials are discarded immediately after the run.</li>
+        </ol>
       </div>
 
-      <h4>Detection Capabilities</h4>
+      <h4>Key decisions</h4>
+      <ul class="decision-list">
+        <li><span class="t">systemd over a manually run process</span><span class="d">Ensures the service recovers from crashes and survives reboots without anyone needing to remember to restart it.</span></li>
+        <li><span class="t">Tailscale over a traditional VPN or open port</span><span class="d">Reachable from every authorized device, including CI, without a static IP or any port exposed to the public internet.</span></li>
+        <li><span class="t">Manual deployment gate</span><span class="d">Production holds real financial data — a code push should never be equivalent to "go live."</span></li>
+      </ul>
+
       <p>
-        Beyond the operational shape, the tool itself runs five configurable checks — full and partial refund
-        pairing (matched by reference number and amount), duplicate transaction IDs, duplicate payments, and
-        statistical outlier detection — with persistent upload history, manual false-positive marking that's
-        excluded from future reports, and CSV/PDF export (custom-rendered reports with embedded font support).
+        The application itself runs five configurable checks (full and partial refund matching, duplicate
+        transaction IDs, duplicate payments, statistical outlier detection), keeps a persistent history of
+        uploads, supports manual false-positive marking, and exports findings to CSV and PDF.
       </p>
 
-      <h4>Outcome</h4>
-      <p>
-        A financial-anomaly detector that runs unattended in production: restart-proof, reachable only over a
-        private mesh network, deployable on demand through a gated pipeline that leaves no standing credentials
-        or open ports behind. The same operational shape as a small production microservice — not a personal
-        script that happens to be running somewhere.
-      </p>
-
-      <div class="case-footer">REPO: <a href="https://github.com/zeljkotr/bailiff-sentinel">github.com/zeljkotr/bailiff-sentinel</a></div>
+      <div class="case-footer">Repository: <a href="https://github.com/zeljkotr/bailiff-sentinel">github.com/zeljkotr/bailiff-sentinel</a></div>
     </div>
 
     <div class="case">
       <div class="case-kicker">DevOps · Containerization &amp; CI/CD</div>
-      <h3>Dockerized Monitoring Tools with Automated CI/CD Pipelines</h3>
-
+      <h3>Dockerized Monitoring Tools with Automated CI/CD</h3>
       <div class="case-meta">
-        <div><div class="l">Type</div><div class="v">Personal / portfolio projects</div></div>
-        <div><div class="l">Role</div><div class="v">Sole developer, end-to-end</div></div>
-        <div><div class="l">Stack</div><div class="v">Python, Docker, GitHub Actions, Docker Hub</div></div>
-        <div><div class="l">Repos</div><div class="v"><a href="https://github.com/zeljkotr">github.com/zeljkotr</a></div></div>
+        <span><b>Role</b> Sole developer, end to end</span>
+        <span><b>Stack</b> Python, Docker, GitHub Actions, Docker Hub</span>
+        <span><b>Repositories</b> <a href="https://github.com/zeljkotr">github.com/zeljkotr</a></span>
       </div>
 
-      <h4>Challenge</h4>
       <p>
-        Writing a working Python script is one thing — shipping it the way production tooling actually gets
-        shipped is another. The goal was to move two monitoring scripts from "runs on my machine" to a
-        repeatable pipeline: containerized, version-controlled, automatically built and tested, and
-        automatically published.
+        Two monitoring tools moved from ad hoc scripts to a repeatable delivery process: containerized,
+        version-controlled, and automatically built and published on every change.
       </p>
-
-      <h4>Project A — Server Ping Monitor with Email Alerts</h4>
       <p>
-        A Python monitor (<code>subprocess</code>, <code>datetime</code>, <code>smtplib</code>) that pings a
-        list of servers on a schedule and emails an alert the moment one goes unreachable. Set-based
-        deduplication tracks which hosts are already known-down, so a flapping link triggers one alert instead
-        of flooding the inbox every cycle.
+        The first is a server-availability monitor that pings a list of hosts on a schedule and emails an alert
+        the moment one becomes unreachable, with deduplication so a flapping connection triggers a single
+        notification rather than repeated alerts. The second is a Flask dashboard reporting live CPU, memory,
+        disk, network, uptime, temperature, and active sessions for a server, accessible from any device on the
+        network.
       </p>
-
-      <h4>Project B — Flask System-Monitor Dashboard</h4>
       <p>
-        A small Flask app serving a live web dashboard of CPU, RAM, disk, network throughput, uptime,
-        temperature, top-5 processes, and active SSH sessions — running continuously on the Ubuntu server and
-        reachable from any device on the network.
+        Both are built through a GitHub Actions pipeline that builds a Docker image on every push and publishes
+        it to Docker Hub, ready to pull and run anywhere without a manual build step.
       </p>
-
-      <div class="pipeline">git push → main
-  <span class="arrow">→</span> <span class="stage">GitHub Actions: build image</span>  <span class="ok">[ OK ]</span>
-  <span class="arrow">→</span> <span class="stage">push to Docker Hub</span>  <span class="ok">[ OK ]</span>
-  <span class="arrow">→</span> pull &amp; redeploy container, anywhere</div>
-
-      <div class="decision-grid">
-        <div class="decision">
-          <div class="t">Docker over bare scripts</div>
-          <div class="d">Same environment on the dev machine, the Ubuntu server, and anywhere else the image gets pulled.</div>
-        </div>
-        <div class="decision">
-          <div class="t">GitHub Actions over manual builds</div>
-          <div class="d">Every push to <code>main</code> builds and publishes — no manual <code>docker build</code>/<code>push</code> to forget or get wrong.</div>
-        </div>
-      </div>
-
-      <h4>Outcome</h4>
-      <p>
-        Two working, Dockerized tools with fully automated pipelines: every commit triggers a build that
-        publishes a fresh image, ready to pull and run anywhere.
-      </p>
-
       <div class="case-footer">
-        REPOS: <a href="https://github.com/zeljkotr/Server-monitor-with-email-alert">Server-monitor-with-email-alert</a> ·
+        Repositories: <a href="https://github.com/zeljkotr/Server-monitor-with-email-alert">Server-monitor-with-email-alert</a>,
         <a href="https://github.com/zeljkotr/system-monitor">system-monitor</a> ·
-        DOCKER HUB: <a href="https://hub.docker.com/u/zeljkotr">hub.docker.com/u/zeljkotr</a>
+        Docker Hub: <a href="https://hub.docker.com/u/zeljkotr">hub.docker.com/u/zeljkotr</a>
       </div>
     </div>
 
     <div class="case">
-      <div class="case-kicker">AI Infrastructure · Self-Hosted Inference</div>
-      <h3>Self-Hosted LLM Inference Platform (Ollama + Open WebUI on TrueNAS)</h3>
-
+      <div class="case-kicker">AI Infrastructure · Self-Hosted Deployment</div>
+      <h3>Self-Hosted LLM Inference Platform</h3>
       <div class="case-meta">
-        <div><div class="l">Org</div><div class="v">MTC Nissal d.o.o.</div></div>
-        <div><div class="l">Host</div><div class="v">TrueNAS SCALE, on-prem</div></div>
-        <div><div class="l">Compute</div><div class="v">CPU-only inference</div></div>
-        <div><div class="l">Stack</div><div class="v">Ollama, Open WebUI, Docker Compose</div></div>
+        <span><b>Organization</b> MTC Nissal d.o.o.</span>
+        <span><b>Host</b> TrueNAS SCALE, on-premises, CPU-only</span>
+        <span><b>Stack</b> Ollama, Open WebUI, Docker Compose</span>
       </div>
-
       <p>
-        Deployed Ollama and Open WebUI as a single Docker Compose stack on existing TrueNAS hardware — no GPU,
-        no cloud API calls — with persistent storage on a dedicated ZFS dataset and quantized models tuned for
-        usable response speed on CPU alone.
-      </p>
-      <p>
-        Extended beyond chat into a voice-driven agent wired to network checks across the company's live
-        infrastructure — asking it out loud to check disk usage across the LAN, or flag a host with high
-        CPU/RAM, moving it from a Q&amp;A demo to an agentic monitoring tool running in production.
-      </p>
-
-      <h4>Outcome</h4>
-      <p>
-        A self-hosted, privacy-respecting inference platform with no per-token cost or external dependency,
-        extended into a voice-driven agent that monitors the internal network on request.
+        Deployed Ollama and Open WebUI as a Docker Compose stack on existing company hardware — no GPU, no
+        cloud dependency — with persistent storage on a dedicated ZFS dataset and models tuned for acceptable
+        response speed on CPU alone. Extended beyond a chat interface into a voice-driven agent connected to
+        live network checks, able to report disk usage or flag high resource utilization across the company's
+        infrastructure on request.
       </p>
     </div>
   </div>
@@ -446,144 +323,87 @@
 
 <section id="systems">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">04</span><span class="sec-title">Systems Engineering Foundation</span></div>
-    <p class="sec-sub">
-      The production discipline above didn't come from nowhere — seven years of hands-on systems and network
-      engineering underneath it, condensed here.
-    </p>
-
+    <div class="sec-wrap-title">
+      <span class="sec-title">Systems Engineering Background</span>
+      <p class="sec-sub">Seven years of hands-on infrastructure work underlies the projects above.</p>
+    </div>
     <div class="mini-grid">
       <div class="mini-card">
-        <div class="k">Virtualization · Migration</div>
-        <h4>Windows 10 Physical-to-Virtual onto TrueNAS/KVM</h4>
-        <p>Live-imaged a production Windows 10 host with Disk2vhd/VSS, converted to RAW for direct ZFS-backed
-          storage, and resolved a post-migration boot failure by switching to VirtIO drivers for better disk
-          and network performance.</p>
+        <div class="k">Virtualization &amp; Migration</div>
+        <h4>Physical-to-Virtual Server Migration</h4>
+        <p>Migrated a production Windows 10 host onto TrueNAS/KVM using live disk imaging, resolving a
+          post-migration boot issue by switching to VirtIO drivers for disk and network performance.</p>
         <div class="tag">KVM · QEMU · TrueNAS SCALE · ZFS</div>
       </div>
-
       <div class="mini-card">
-        <div class="k">Industrial Systems · Legacy Modernization</div>
-        <h4>Legacy SCADA Virtualization (Windows XP → VMware)</h4>
-        <p>Virtualized an end-of-life SCADA host running live PLC-connected production equipment — preserving
-          the exact original software rather than risking an upgrade, with serial/USB passthrough and a
-          snapshot/backup strategy the physical machine never had.</p>
-        <div class="tag">VMware vCenter Converter · P2V</div>
+        <div class="k">Industrial Systems</div>
+        <h4>Legacy SCADA Virtualization</h4>
+        <p>Virtualized an end-of-life SCADA host controlling live production equipment, preserving the original
+          software environment exactly while adding backup and snapshot capability it never had.</p>
+        <div class="tag">VMware vCenter Converter</div>
       </div>
-
       <div class="mini-card">
-        <div class="k">Network Engineering · Greenfield Design</div>
-        <h4>Enterprise Network on MikroTik — 100+ Devices, 6 Sites</h4>
-        <p>Designed a star-topology, all-fiber network from a central hub to six production sites, with VLAN
-          segmentation, layered VPN access (WireGuard/OpenVPN/L2TP), QoS bandwidth shaping, and automated
-          config backup — fully remote-manageable via WinBox and SNMP.</p>
-        <div class="tag">CCR2116 · CRS326 · RB260G</div>
+        <div class="k">Network Engineering</div>
+        <h4>Enterprise Network — 100+ Devices, 6 Sites</h4>
+        <p>Designed a fiber-based, star-topology network connecting six production sites, with VLAN
+          segmentation, layered VPN access, QoS shaping, and centralized remote management.</p>
+        <div class="tag">MikroTik CCR2116 · CRS326 · RB260G</div>
       </div>
-
       <div class="mini-card">
-        <div class="k">RF Engineering · Independent R&amp;D</div>
-        <h4>Meshtastic LoRa Mesh — Device Engineering &amp; Data Tooling</h4>
-        <p>Built and field-tuned an ESP32/LoRa (868MHz) mesh network, then wrote the Python collection layer and
-          <a href="https://map.msh.rs">map.msh.rs</a> — a live node-health map exposed securely via Cloudflare
-          Tunnel, no open inbound ports.</p>
+        <div class="k">RF Engineering &amp; Tooling</div>
+        <h4>LoRa Mesh Network — Devices &amp; Monitoring</h4>
+        <p>Built and tuned a LoRa mesh radio network, then wrote the data collection layer and a public
+          node-health map, exposed securely with no open inbound ports.</p>
         <div class="tag">ESP32 · Meshtastic · Cloudflare Tunnel</div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="ops">
+<section id="experience">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">05</span><span class="sec-title">Operations &amp; Leadership</span></div>
-    <p class="sec-sub">Running infrastructure is a people problem too — most of my career has meant translating
-      "what I built" into "why it matters" and "how you maintain it," daily.</p>
-
-    <div class="lead-grid">
-      <div class="lead-card">
-        <h4>Team Leadership</h4>
-        <ul>
-          <li>Led and trained IT teams of up to 7 across two organizations (MTC Nissal, Abanqo AG).</li>
-          <li>Set support standards, onboarding, and troubleshooting methodology for new staff.</li>
-          <li>Mentored staff on diagnosing from first principles, not scripts.</li>
-        </ul>
-      </div>
-      <div class="lead-card">
-        <h4>Documentation &amp; Process</h4>
-        <ul>
-          <li>Implemented osTicket, including escalation and SLA tracking.</li>
-          <li>Wrote architecture/config documentation for handoff.</li>
-          <li>Translated infrastructure decisions for non-technical stakeholders.</li>
-        </ul>
-      </div>
-      <div class="lead-card">
-        <h4>Professional History</h4>
-        <div class="timeline-row"><span class="role">IT Support / Team Lead — MTC Nissal d.o.o.</span><span class="when">Jan 2019 – Present</span></div>
-        <div class="timeline-row"><span class="role">IT Operations Manager — Abanqo AG</span><span class="when">Aug 2018 – Jan 2019</span></div>
-        <div class="timeline-row"><span class="role">IT Manager — C.I.M. College</span><span class="when">Apr 2015 – Jun 2018</span></div>
-      </div>
-      <div class="lead-card">
-        <h4>Certifications &amp; Languages</h4>
-        <ul>
-          <li>Certified Computer Network Administrator — IT Academy, Belgrade</li>
-          <li>Electrical Technician — Tech. School "Branko Pešić", Belgrade</li>
-          <li>Serbian (native) · English (professional, C1+) · Finnish (basic)</li>
-        </ul>
-      </div>
+    <div class="sec-wrap-title"><span class="sec-title">Experience</span></div>
+    <div class="timeline-row">
+      <div><div class="role">IT Support / Team Lead</div><span class="org">MTC Nissal d.o.o.</span></div>
+      <div class="when">Jan 2019 – Present</div>
+    </div>
+    <div class="timeline-row">
+      <div><div class="role">IT Operations Manager</div><span class="org">Abanqo AG</span></div>
+      <div class="when">Aug 2018 – Jan 2019</div>
+    </div>
+    <div class="timeline-row">
+      <div><div class="role">IT Manager</div><span class="org">C.I.M. College</span></div>
+      <div class="when">Apr 2015 – Jun 2018</div>
     </div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="wrap contact-cta">
-    <div class="sec-head"><span class="sec-num">06</span><span class="sec-title">Contact</span></div>
-    <h2>Let's talk production.</h2>
-    <p class="sec-sub" style="margin-bottom:0;">Open to DevOps and SRE roles — happy to walk through the
-      systemd units, pipelines, and access model behind any project above.</p>
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-wrap-title"><span class="sec-title">Certifications &amp; Languages</span></div>
+    <ul class="cred-list">
+      <li>Certified Computer Network Administrator — IT Academy, Belgrade</li>
+      <li>Electrical Technician — Technical School "Branko Pešić", Belgrade</li>
+      <li>Serbian (native) · English (professional working proficiency) · Finnish (basic)</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap contact-final">
+    <div class="sec-wrap-title"><span class="sec-title">Contact</span></div>
+    <h2>Open to DevOps and SRE roles.</h2>
+    <p>Happy to walk through the architecture, deployment model, or operational decisions behind any project above.</p>
     <div class="contact-links">
       <a href="mailto:zeljko.tripcevski@aol.com">zeljko.tripcevski@aol.com</a>
-      <a href="tel:+38161160228 1">+381 61 160 22 81</a>
+      <a href="tel:+381611602281">+381 61 160 22 81</a>
       <a href="https://linkedin.com/in/zeljko-tripcevski">linkedin.com/in/zeljko-tripcevski</a>
       <a href="https://github.com/zeljkotr">github.com/zeljkotr</a>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Zeljko Tripcevski. Niš, Serbia. Developed by Zeljko Tripcevski.</footer>
-
-<script>
-(function(){
-  const lines = [
-    ["[ OK ]", "Started zeljko-tripcevski.service"],
-    ["[ OK ]", "Mounted /production"],
-    ["[ OK ]", "Reached target zero-downtime.target"],
-    ["[ OK ]", "tailscaled: joined tailnet, 0 open inbound ports"],
-    ["[ OK ]", "github-actions: deploy gate armed, awaiting manual trigger"],
-    ["[ OK ]", "Reached target career-ready.target"],
-  ];
-  const el = document.getElementById("bootLog");
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if(reduced){
-    el.innerHTML = lines.map(l => `<div class="line"><span class="ok">${l[0]}</span> ${l[1]}</div>`).join("");
-    return;
-  }
-
-  let i = 0;
-  function nextLine(){
-    if(i >= lines.length){
-      el.insertAdjacentHTML("beforeend", `<span class="boot-cursor"></span>`);
-      return;
-    }
-    const div = document.createElement("div");
-    div.className = "line";
-    div.innerHTML = `<span class="ok">${lines[i][0]}</span> ${lines[i][1]}`;
-    el.appendChild(div);
-    i++;
-    setTimeout(nextLine, 220);
-  }
-  nextLine();
-})();
-</script>
+<footer class="site-footer">© 2026 Zeljko Tripcevski · Niš, Serbia</footer>
 
 </body>
 </html>
